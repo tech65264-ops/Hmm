@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, My Love 💙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Satisfy&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      overflow: hidden; 
+      background: linear-gradient(135deg, #87CEEB 0%, #001f3f 50%, #00FFFF 100%); 
+      height: 100vh; 
+      position: relative; 
+      color: white; 
+    }
+    canvas { position: fixed; top: 0; left: 0; z-index: 1; opacity: 0.1; }
+    .content { 
+      position: relative; z-index: 10; 
+      display: flex; flex-direction: column; 
+      justify-content: center; align-items: center; 
+      height: 100vh; text-align: center; 
+      animation: glow 2s ease-in-out infinite alternate; 
+    }
+    h1 { 
+      font-size: clamp(2rem, 8vw, 4rem); 
+      font-family: 'Great Vibes', cursive; 
+      color: #FFB3BA; 
+      text-shadow: 0 0 20px #00FFFF; 
+      margin-bottom: 1rem; 
+    }
+    .message { 
+      font-size: clamp(1.2rem, 5vw, 2rem); 
+      font-family: 'Satisfy', cursive; 
+      color: #FCBF04; 
+      text-shadow: 0 0 15px #FF677D; 
+      max-width: 90%; 
+      line-height: 1.4; 
+      margin-bottom: 2rem; 
+    }
+    .footer { 
+      font-size: 1.2rem; 
+      opacity: 0.9; 
+      font-style: italic; 
+    }
+    @keyframes glow { 
+      from { filter: drop-shadow(0 0 10px #00FFFF); } 
+      to { filter: drop-shadow(0 0 20px #FFB3BA); } 
+    }
+    .heart { 
+      position: absolute; 
+      font-size: 2rem; 
+      color: #FF677D; 
+      pointer-events: none; 
+      z-index: 5; 
+      animation: float 6s linear infinite; 
+    }
+    @keyframes float { 
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; } 
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; } 
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+  <div class="content">
+    <h1>Happy Birthday, My SHAHID ! 💙</h1>
+    <p class="message">What everywhere happened I will be there</p>
+    <div class="footer">made with love by aslaha ❤️</div>
+  </div>
+
+  <script>
+    // Matrix Rain (blue-themed, subtle)
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+    ctx.font = `${fontSize}px monospace`;
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 31, 63, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00FFFF';
+      ctx.strokeStyle = '#87CEEB';
+      drops.forEach((y, i) => {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.strokeText(text, i * fontSize, y * fontSize);
+        if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      });
+    }
+    setInterval(draw, 50);
+
+    // Floating Hearts
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.innerHTML = '💙';
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 300);
+    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+  </script>
+</body>
+</html>
